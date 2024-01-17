@@ -7,7 +7,6 @@ def minOperations(n):
         return 0
     
     operations = 0
-    clipboard = 0
     currentChar = 1
 
     while currentChar< n:
