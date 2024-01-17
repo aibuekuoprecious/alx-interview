@@ -2,7 +2,7 @@
 """ Module for 0-minoperations """
 
 def minOperations(n):
-    """ Calculates the fewest number of operations needed """
+    """ Fewest number of operations needed """
     if (n < 2):
         return 0
     
@@ -13,8 +13,9 @@ def minOperations(n):
     while currentChar < n:
         if n % currentChar == 0:
             # Copy All
-            operations += 1
             lastCopied = currentChar
+            operations += 1
+            
         # Paste
         currentChar += lastCopied
         operations += 1
