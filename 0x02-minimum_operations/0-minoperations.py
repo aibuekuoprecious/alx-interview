@@ -13,10 +13,8 @@ def minOperations(n):
     while currentChar< n:
         if n % currentChar == 0:
             # Copy All
-            clipboard = currentChar
             operations += 1
         # Paste
-        currentChar += clipboard
         operations += 1
     
     # Check if n is a prime number
