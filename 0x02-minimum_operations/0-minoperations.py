@@ -20,10 +20,21 @@ def minOperations(n):
     if (n < 2):
         return 0
     
-    operations, divisor = 0, 2
-    while n > 1:
-        while n % divisor == 0:
-            operations += divisor
-            n //= divisor
-        divisor += 1
+    operations = 0
+    clipboard = 0
+    currentChar = 1
+
+    while currentChar< n:
+        if n % currentChar == 0:
+            # Copy All
+            clipboard = currentChar
+            operations += 1
+        # Paste
+        currentChar += clipboard
+        operations += 1
+    
+    # Check if n is a prime number
+    if currentChar < n:
+        operations += 1
+
     return operations
