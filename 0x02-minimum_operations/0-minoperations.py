@@ -9,15 +9,14 @@ def minOperations(n):
     operations = 0
     currentChar = 1
 
-    while currentChar< n:
+    while currentChar < n:
         if n % currentChar == 0:
             # Copy All
             operations += 1
-        # Paste
-        operations += 1
-    
-    # Check if n is a prime number
-    if currentChar < n:
+            currentChar += currentChar  # Paste after Copy All
+        else:
+            # Paste
+            currentChar += currentChar
         operations += 1
 
     return operations
