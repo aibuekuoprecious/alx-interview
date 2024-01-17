@@ -8,15 +8,15 @@ def minOperations(n):
     
     operations = 0
     currentChar = 1
+    lastCopied = 1
 
     while currentChar < n:
         if n % currentChar == 0:
             # Copy All
             operations += 1
-            currentChar += currentChar  # Paste after Copy All
-        else:
-            # Paste
-            currentChar += currentChar
+            lastCopied = currentChar
+        # Paste
+        currentChar += lastCopied
         operations += 1
 
-    return operations
+    return operations if currentChar == n else 0
