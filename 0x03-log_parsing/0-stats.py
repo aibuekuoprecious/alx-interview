@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 import sys
+import re
+
+
 
 def print_stats(total_size, status_codes):
     print("File size: {}".format(total_size))
@@ -8,18 +11,28 @@ def print_stats(total_size, status_codes):
         if status_codes[code] > 0:
             print("{}: {}".format(code, status_codes[code]))
 
+
 def parse_line(line):
-    try:
-        parts = line.split()
-        size = int(parts[-1])
-        code = int(parts[-2])
+    match = re.match(r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$', line)
+    if match:
+        code = int(match.group(1))
+        size = int(match.group(2))
         return size, code
-    except (ValueError, IndexError):
+    else:
         return None, None
+
 
 def main():
     total_size = 0
-    status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+    status_codes = {
+        200: 0,
+        301: 0,
+        400: 0,
+        401: 0,
+        403: 0,
+        404: 0,
+        405: 0,
+        500: 0}
     line_count = 0
 
     try:
@@ -38,5 +51,7 @@ def main():
         print_stats(total_size, status_codes)
         raise
 
+
 if __name__ == "__main__":
     main()
+
