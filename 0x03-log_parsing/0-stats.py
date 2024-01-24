@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 
 import sys
 
@@ -17,26 +16,22 @@ def parse_line(line):
     except (ValueError, IndexError):
         return None, None
 
-def main():
-    total_size = 0
-    status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
-    line_count = 0
+total_size = 0
+status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+line_count = 0
 
-    try:
-        for line in sys.stdin:
-            size, code = parse_line(line)
-            if size is not None and code is not None:
-                total_size += size
-                if code in status_codes:
-                    status_codes[code] += 1
+try:
+    for line in sys.stdin:
+        size, code = parse_line(line)
+        if size is not None and code is not None:
+            total_size += size
+            if code in status_codes:
+                status_codes[code] += 1
 
-            line_count += 1
-            if line_count % 10 == 0:
-                print_stats(total_size, status_codes)
+        line_count += 1
+        if line_count % 10 == 0:
+            print_stats(total_size, status_codes)
 
-    except KeyboardInterrupt:
-        print_stats(total_size, status_codes)
-        raise
-
-if __name__ == "__main__":
-    main()
+except KeyboardInterrupt:
+    print_stats(total_size, status_codes)
+    raise
