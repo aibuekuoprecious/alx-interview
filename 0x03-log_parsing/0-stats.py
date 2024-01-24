@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys
+import re
 
 
 def print_stats(total_size, status_codes):
@@ -31,16 +32,18 @@ def parse_log():
                 print_stats(total_size, status_codes)
                 count = 1
 
-            parts = line.split()
-            if len(parts) >= 7:
-                size = int(parts[-1])
-                code = int(parts[-2])
+            match = re.match(
+                r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$', line)
+            if match:
+                code = int(match.group(1))
+                size = int(match.group(2))
                 total_size += size
                 if code in status_codes:
                     status_codes[code] += 1
 
     except KeyboardInterrupt:
-        pass
+        print_stats(total_size, status_codes)
+        sys.exit(0)
 
     print_stats(total_size, status_codes)
 
