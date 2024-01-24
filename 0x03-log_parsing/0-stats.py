@@ -4,7 +4,6 @@ import sys
 import re
 
 
-
 def print_stats(total_size, status_codes):
     print("File size: {}".format(total_size))
     for code in sorted(status_codes.keys()):
@@ -13,7 +12,9 @@ def print_stats(total_size, status_codes):
 
 
 def parse_line(line):
-    match = re.match(r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$', line)
+    match = re.match(
+        r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$',
+        line)
     if match:
         code = int(match.group(1))
         size = int(match.group(2))
@@ -54,4 +55,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
