@@ -2,11 +2,13 @@
 
 import sys
 
+
 def print_stats(total_size, status_codes):
     print("Total file size: File size:", total_size)
     for code in sorted(status_codes.keys()):
         if status_codes[code] > 0:
             print(code, ":", status_codes[code])
+
 
 def parse_log():
     total_size = 0
@@ -41,6 +43,7 @@ def parse_log():
         pass
 
     print_stats(total_size, status_codes)
+
 
 if __name__ == "__main__":
     parse_log()
