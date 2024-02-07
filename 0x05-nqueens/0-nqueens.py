@@ -19,25 +19,7 @@ n = int(sys.argv[1])
 
 
 def queens(n, i=0, a=[], b=[], c=[]):
-    """Find all possible positions for placing n queens on an n x n chessboard.
-
-    Args:
-        n (int): The size of the chessboard and the number of queens to be placed.
-        i (int, optional): The current row being considered. Defaults to 0.
-        a (list, optional): The list of column positions for the queens in each row.
-                            Defaults to [].
-        b (list, optional): The list of diagonal positions 
-                            (sum of row and column) for the queens.
-                            Defaults to [].
-        c (list, optional): The list of diagonal positions 
-                            (difference of row and column) for the queens.
-                            Defaults to [].
-
-    Yields:
-        list: A list of column positions for the queens in each row,
-              representing a valid solution.
-
-    """
+    """Find all possible positions for placing n queens on an n x n chessboard."""
     if i < n:
         for j in range(n):
             if j not in a and i + j not in b and i - j not in c:
@@ -47,16 +29,7 @@ def queens(n, i=0, a=[], b=[], c=[]):
 
 
 def solve(n):
-    """
-    Solve the N-Queens problem and return a list of solutions.
-
-    Args:
-        n (int): The size of the chessboard and the number of queens.
-
-    Returns:
-        list: A list of queen positions.
-
-    """
+    """Solve the N-Queens problem and return a list of solutions."""
     k = []
     i = 0
     for solution in queens(n, 0):
