@@ -1,23 +1,42 @@
+#!/usr/bin/python3
+""" N queens """
 import sys
 
 
+if len(sys.argv) > 2 or len(sys.argv) < 2:
+    print("Usage: nqueens N")
+    exit(1)
+
+if not sys.argv[1].isdigit():
+    print("N must be a number")
+    exit(1)
+
+if int(sys.argv[1]) < 4:
+    print("N must be at least 4")
+    exit(1)
+
+n = int(sys.argv[1])
+
+
 def queens(n, i=0, a=[], b=[], c=[]):
-    """
-    Generates all valid solutions for placing 
-    N queens on an N×N chessboard.
+    """Find all possible positions for placing n queens on an n x n chessboard.
 
     Args:
-        n (int): The size of the chessboard (N).
-        i (int): The current row being considered.
-        a (list): A list representing the current partial solution
-                  (column indices of queens for each row).
-        b (list): A list representing the diagonals 
-                  from top-left to bottom-right.
-        c (list): A list representing the diagonals
-                  from top-right to bottom-left.
+        n (int): The size of the chessboard and the number of queens to be placed.
+        i (int, optional): The current row being considered. Defaults to 0.
+        a (list, optional): The list of column positions for the queens in each row.
+                            Defaults to [].
+        b (list, optional): The list of diagonal positions 
+                            (sum of row and column) for the queens.
+                            Defaults to [].
+        c (list, optional): The list of diagonal positions 
+                            (difference of row and column) for the queens.
+                            Defaults to [].
 
     Yields:
-        list: A valid solution (list of column indices for each row).
+        list: A list of column positions for the queens in each row,
+              representing a valid solution.
+
     """
     if i < n:
         for j in range(n):
@@ -29,10 +48,14 @@ def queens(n, i=0, a=[], b=[], c=[]):
 
 def solve(n):
     """
-    Solves the N-queens problem and prints all solutions.
+    Solve the N-Queens problem and return a list of solutions.
 
     Args:
-        n (int): The size of the chessboard (N).
+        n (int): The size of the chessboard and the number of queens.
+
+    Returns:
+        list: A list of queen positions.
+
     """
     k = []
     i = 0
@@ -45,19 +68,4 @@ def solve(n):
         i = 0
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        exit(1)
-
-    if not sys.argv[1].isdigit():
-        print("N must be a number")
-        exit(1)
-
-    n = int(sys.argv[1])
-
-    if n < 4:
-        print("N must be at least 4")
-        exit(1)
-
-    solve(n)
+solve(n)
