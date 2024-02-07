@@ -1,25 +1,9 @@
 #!/usr/bin/python3
-"""
-Placing N non-attacking queens on an N×N chessboard
-"""
 import sys
 
 N = 0
 
-
 def is_safe(board, row, col):
-    """
-    Check if it is safe to place a queen at the given position on the board.
-
-    Args:
-        board (list): The chess board represented as a 2D list.
-        row (int): The row index of the position to check.
-        col (int): The column index of the position to check.
-
-    Returns:
-        bool: True if it is safe to place a queen at the given position,
-        False otherwise.
-    """
     for i in range(col):
         if board[row][i] == 1:
             return False
@@ -31,18 +15,7 @@ def is_safe(board, row, col):
             return False
     return True
 
-
 def solve_nq(board, col):
-    """
-    Solve the N-Queens problem recursively.
-
-    Args:
-        board (list): The N x N chessboard represented as a 2D list.
-        col (int): The current column being considered.
-
-    Returns:
-        bool: True if a solution is found, False otherwise.
-    """
     if col == N:
         print(board)
         return True
@@ -54,11 +27,7 @@ def solve_nq(board, col):
             board[i][col] = 0
     return res
 
-
 def solve_nq_util():
-    """
-    Utility function for solving the N-queens problem.
-    """
     global N
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
@@ -75,6 +44,5 @@ def solve_nq_util():
     if not solve_nq(board, 0):
         print("Solution does not exist")
         sys.exit(0)
-
 
 solve_nq_util()
