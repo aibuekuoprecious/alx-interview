@@ -1,24 +1,23 @@
-#!/usr/bin/python3
-""" N queens """
 import sys
-from sys import exit
 
 
 def queens(n, i=0, a=[], b=[], c=[]):
-    """Find all possible positions for placing queens on the chessboard.
+    """
+    Generates all valid solutions for placing 
+    N queens on an N×N chessboard.
 
     Args:
-        n (int): Size of the chessboard and the number of queens.
-        i (int, optional): Current row being considered. Defaults to 0.
-        a (list, optional): List of column positions for the queens.
-                            Defaults to [].
-        b (list, optional): List of diagonal positions (i + j) for the queens.
-                            Defaults to [].
-        c (list, optional): List of diagonal positions (i - j) for the queens.
-                            Defaults to [].
+        n (int): The size of the chessboard (N).
+        i (int): The current row being considered.
+        a (list): A list representing the current partial solution
+                  (column indices of queens for each row).
+        b (list): A list representing the diagonals 
+                  from top-left to bottom-right.
+        c (list): A list representing the diagonals
+                  from top-right to bottom-left.
 
     Yields:
-        list: List of column positions for a valid arrangement of queens.
+        list: A valid solution (list of column indices for each row).
     """
     if i < n:
         for j in range(n):
@@ -30,14 +29,10 @@ def queens(n, i=0, a=[], b=[], c=[]):
 
 def solve(n):
     """
-    Solve the N-Queens problem and return a list of solutions.
+    Solves the N-queens problem and prints all solutions.
 
     Args:
-        n (int): The size of the chessboard and the number of queens.
-
-    Returns:
-        list: List of solutions, each solution is a list of queen positions.
-
+        n (int): The size of the chessboard (N).
     """
     k = []
     i = 0
