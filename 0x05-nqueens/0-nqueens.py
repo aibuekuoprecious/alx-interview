@@ -1,50 +1,54 @@
-#!/usr/bin/env python3
-""" Placing N non-attacking queens on an N×N chessboard"""
-
+#!/usr/bin/python3
 import sys
 
 
-def solve_n_queens(n):
-    def is_safe(queen, queens):
-        for i in range(queen):
+def solveNQueens(n):
+    def can_place(pos, ocuppied_positions):
+        for i in range(len(ocuppied_positions)):
             if (
-                queens[i] == queens[queen]
-                or queens[i] - i == queens[queen] - queen
-                or queens[i] + i == queens[queen] + queen
+                ocuppied_positions[i] == pos
+                or ocuppied_positions[i] - i == pos - len(ocuppied_positions)
+                or ocuppied_positions[i] + i == pos + len(ocuppied_positions)
             ):
                 return False
         return True
 
-    def place_queen(queens, target_row):
-        if target_row == n:
-            result.append(queens[:])
+    def place_queens(n, index, ocuppied_positions, all_ocuppied_positions):
+        if index == n:
+            all_ocuppied_positions.append(ocuppied_positions[:])
             return
-        for column in range(n):
-            queens[target_row] = column
-            if is_safe(target_row, queens):
-                place_queen(queens, target_row + 1)
 
-    result = []
-    place_queen([0] * n, 0)
-    return result
+        for i in range(n):
+            if can_place(i, ocuppied_positions):
+                ocuppied_positions.append(i)
+                place_queens(n, index + 1, ocuppied_positions, all_ocuppied_positions)
+                ocuppied_positions.pop()
 
-
-def print_result(result):
-    for solution in result:
-        print([[row, col] for row, col in enumerate(solution)])
+    all_ocuppied_positions = []
+    place_queens(n, 0, [], all_ocuppied_positions)
+    return all_ocuppied_positions
 
 
-if len(sys.argv) != 2:
-    print("Usage: nqueens N")
-    sys.exit(1)
-try:
-    n = int(sys.argv[1])
-except ValueError:
-    print("N must be a number")
-    sys.exit(1)
-if n < 4:
-    print("N must be at least 4")
-    sys.exit(1)
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: nqueens N")
+        sys.exit(1)
 
-result = solve_n_queens(n)
-print_result(result)
+    try:
+        n = int(sys.argv[1])
+    except ValueError:
+        print("N must be a number")
+        sys.exit(1)
+
+    if n < 4:
+        print("N must be at least 4")
+        sys.exit(1)
+
+    solutions = solveNQueens(n)
+    for solution in solutions:
+        result = [[i, pos] for i, pos in enumerate(solution)]
+        print(result)
+
+
+if __name__ == "__main__":
+    main()
