@@ -3,30 +3,30 @@ import sys
 
 
 def solveNQueens(n):
-    def can_place(pos, ocuppied_positions):
-        for i in range(len(ocuppied_positions)):
+    def can_place(pos, taken_pos):
+        for i in range(len(taken_pos)):
             if (
-                ocuppied_positions[i] == pos
-                or ocuppied_positions[i] - i == pos - len(ocuppied_positions)
-                or ocuppied_positions[i] + i == pos + len(ocuppied_positions)
+                taken_pos[i] == pos
+                or taken_pos[i] - i == pos - len(taken_pos)
+                or taken_pos[i] + i == pos + len(taken_pos)
             ):
                 return False
         return True
 
-    def place_queens(n, index, ocuppied_positions, all_ocuppied_positions):
+    def place_queens(n, index, taken_pos, all_taken_pos):
         if index == n:
-            all_ocuppied_positions.append(ocuppied_positions[:])
+            all_taken_pos.append(taken_pos[:])
             return
 
         for i in range(n):
-            if can_place(i, ocuppied_positions):
-                ocuppied_positions.append(i)
-                place_queens(n, index + 1, ocuppied_positions, all_ocuppied_positions)
-                ocuppied_positions.pop()
+            if can_place(i, taken_pos):
+                taken_pos.append(i)
+                place_queens(n, index + 1, taken_pos, all_taken_pos)
+                taken_pos.pop()
 
-    all_ocuppied_positions = []
-    place_queens(n, 0, [], all_ocuppied_positions)
-    return all_ocuppied_positions
+    all_taken_pos = []
+    place_queens(n, 0, [], all_taken_pos)
+    return all_taken_pos
 
 
 def main():
