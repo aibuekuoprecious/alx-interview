@@ -4,7 +4,9 @@ const request = require('request');
 
 const getFilmCharacters = async (filmId) => {
   try {
-    const filmResponse = await requestPromise('https://swapi-api.hbtn.io/api/films/' + filmId);
+    const filmResponse = await requestPromise(
+      'https://swapi-api.hbtn.io/api/films/' + filmId
+    );
     const filmData = JSON.parse(filmResponse);
     const characters = filmData.characters;
     await printCharactersInExactOrder(characters, 0);
