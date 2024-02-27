@@ -1,22 +1,26 @@
 #!/usr/bin/python3
-
-""" Contains makeChange function"""
+"""
+0. Change comes from within
+"""
 
 
 def makeChange(coins, total):
-    """Calculates the minimum number of coins needed 
-    to make change for a given total value.
-    """
-
-    if total < 1:
+    # If total is 0 or less, return 0
+    if total <= 0:
         return 0
 
-    coins.sort()
-    min_coins = [float('inf')] * (total + 1)
-    min_coins[0] = 0
-    for coin in coins:
-        for amount in range(coin, total + 1):
-            min_coins[amount] = min(
-                min_coins[amount], min_coins[amount - coin] + 1)
+    # Initialize a list to store the minimum number of coins for each amount
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0  # Base case
 
-    return min_coins[total] if min_coins[total] != float('inf') else -1
+    # Iterate through each coin denomination
+    for coin in coins:
+        # Update the minimum number of coins needed for each amount from the current coin
+        for i in range(coin, total + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    # If total cannot be met by any number of coins you have, return -1
+    if dp[total] == float('inf'):
+        return -1
+
+    return dp[total]
