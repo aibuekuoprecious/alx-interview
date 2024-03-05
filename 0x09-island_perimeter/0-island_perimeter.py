@@ -1,23 +1,33 @@
 #!/usr/bin/python3
-"""Island Perimeter - ALX Interview"""
+"""
+This module contains a function that calculates the perimeter of an island
+represented in a 2D grid. The island is represented by 1s and the water is
+represented by 0s. Cells outside the grid are also considered water.
+"""
 
-def island_perimeter(grid):
-    """Returns the perimeter of the island described in grid"""
+def calculate_island_perimeter(grid):
+    """
+    Returns the perimeter of the island described in grid.
+    """
     num_rows = len(grid)
     num_cols = len(grid[0])
     assert 1 <= num_rows and num_cols <= 100
 
     perimeter = 0
-    for i in range(num_rows):
-        for j in range(num_cols):
-            if grid[i][j] == 1:  # Only consider land cells
-                if i == 0 or grid[i - 1][j] == 0:  # Check upper neighbor
+    for row_index in range(num_rows):
+        for col_index in range(num_cols):
+            if grid[row_index][col_index] == 1:  # Only consider land cells
+                # Check upper neighbor
+                if row_index == 0 or grid[row_index - 1][col_index] == 0:
                     perimeter += 1
-                if j == 0 or grid[i][j - 1] == 0:  # Check left neighbor
+                # Check left neighbor
+                if col_index == 0 or grid[row_index][col_index - 1] == 0:
                     perimeter += 1
-                if i == num_rows - 1 or grid[i + 1][j] == 0:  # Check lower neighbor
+                # Check lower neighbor
+                if row_index == num_rows - 1 or grid[row_index + 1][col_index] == 0:
                     perimeter += 1
-                if j == num_cols - 1 or grid[i][j + 1] == 0:  # Check right neighbor
+                # Check right neighbor
+                if col_index == num_cols - 1 or grid[row_index][col_index + 1] == 0:
                     perimeter += 1
 
     return perimeter
