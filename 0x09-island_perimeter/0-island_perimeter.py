@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-"""Island Perimeter"""
+"""Island Perimeter
+"""
+
 
 def island_perimeter(grid):
-    """Returns the perimeter an island"""
+    """Returns the perimeter an island
+    """
     num_rows = len(grid)
     num_cols = len(grid[0])
     assert 1 <= num_rows and num_cols <= 100
@@ -15,9 +18,11 @@ def island_perimeter(grid):
                     perimeter += 1
                 if j == 0 or grid[i][j - 1] == 0:  # Check left neighbor
                     perimeter += 1
-                if i == num_rows - 1 or grid[i + 1][j] == 0:  # Check lower neighbor
+                # Check lower neighbor
+                if i == num_rows - 1 or grid[i + 1][j] == 0:
                     perimeter += 1
-                if j == num_cols - 1 or grid[i][j + 1] == 0:  # Check right neighbor
+                # Check right neighbor
+                if j == num_cols - 1 or grid[i][j + 1] == 0:
                     perimeter += 1
 
     return perimeter
