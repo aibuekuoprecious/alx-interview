@@ -1,33 +1,42 @@
 #!/usr/bin/python3
-"""Prime Game"""
+"""0. Prime Game - Maria and Ben are playing a game"""
+
 
 def isWinner(x, nums):
-    """Determines the winner of a prime game.
+    """x - rounds
+    nums - numbers list
     """
-
-    if x <= 0 or x != len(nums) or nums is None:
+    if x <= 0 or nums is None:
+        return None
+    if x != len(nums):
         return None
 
     ben = 0
     maria = 0
 
-    for num in nums:
-        if isPrime(num):
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        rm_multiples(a, i)
+
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
             ben += 1
         else:
             maria += 1
-
     if ben > maria:
         return "Ben"
-    elif maria > ben:
+    if maria > ben:
         return "Maria"
-    else:
-        return None
+    return None
 
-def isPrime(num):
-    if num < 2:
-        return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
+
+def rm_multiples(ls, x):
+    """removes multiple
+    of primes
+    """
+    for i in range(2, len(ls)):
+        try:
+            ls[i * x] = 0
+        except (ValueError, IndexError):
+            break
